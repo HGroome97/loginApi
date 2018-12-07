@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.qa.business.service.UserRoles.UserRolesService;
 import com.qa.business.service.Users.UsersService;
@@ -37,9 +36,9 @@ public class UsersRest {
     
     
     @DeleteMapping("/addUser")
-    public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
-        userRolesService.deleteUserRoles(id);
-    	return usersService.deleteUser(id);
+    public ResponseEntity<Object> deleteUser(@PathVariable String username) {
+        userRolesService.deleteUserRoles(username);
+    	return usersService.deleteUser(username);
     }
 
     @PutMapping("${path.updateBaby}")

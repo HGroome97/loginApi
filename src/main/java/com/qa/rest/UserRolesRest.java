@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.business.service.UserRoles.UserRolesService;
 import com.qa.repository.domain.UserRoles;
-import com.qa.repository.domain.Users;
 
 @CrossOrigin
 @RequestMapping("/users")
@@ -21,7 +20,7 @@ public class UserRolesRest {
 	 private UserRolesService userRolesService ;
 	 
 	@PutMapping("${path.updateBaby}")
-    public ResponseEntity<Object> updateUser(@RequestBody UserRoles userRole) {
+    public ResponseEntity<Object> updateUserRole(@RequestBody UserRoles userRole) {
         return userRolesService.updateUserRoles(userRole);
     }
 }

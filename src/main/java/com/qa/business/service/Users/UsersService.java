@@ -8,7 +8,7 @@ public interface UsersService {
 
 	String addUser(Users user);
 
-    ResponseEntity<Object> deleteUser(Long id);
+    ResponseEntity<Object> deleteUser(String username);
 
     ResponseEntity<Object> updateUser(Users user);
 }

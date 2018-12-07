@@ -1,11 +1,12 @@
 package com.qa.business.service.UserRoles;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import com.qa.repository.domain.UserRoles;
 import com.qa.repository.persistence.UserRolesRepository;
-import com.qa.repository.persistence.UsersRepository;
 
 public class UserRolesServiceImpl implements UserRolesService {
 
@@ -19,7 +20,7 @@ public class UserRolesServiceImpl implements UserRolesService {
 	}
 
 	@Override
-	public ResponseEntity<Object> deleteUserRoles(Long id) {
+	public ResponseEntity<Object> deleteUserRoles(String username) {
 		return null;
 	}
 
@@ -27,5 +28,10 @@ public class UserRolesServiceImpl implements UserRolesService {
 	public ResponseEntity<Object> updateUserRoles(UserRoles userRole) {
 		return null;
 	}
+	
+	private boolean userRoleExists(Long id){
+        Optional<UserRoles> userRoleOptional = repo.findById(id);
+        return userRoleOptional.isPresent();
+    }
 
 }
