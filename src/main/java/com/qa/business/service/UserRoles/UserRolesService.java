@@ -9,8 +9,8 @@ public interface UserRolesService {
 	
 	String addUserRoles(UserRoles userRole);
 
-    ResponseEntity<Object> deleteUser(Long id);
+    ResponseEntity<Object> deleteUserRoles(Long id);
 
-    ResponseEntity<Object> updateUser(UserRoles userRole);
+    ResponseEntity<Object> updateUserRoles(UserRoles userRole);
 
 }

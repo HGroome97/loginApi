@@ -19,12 +19,12 @@ public class UserRolesServiceImpl implements UserRolesService {
 	}
 
 	@Override
-	public ResponseEntity<Object> deleteUser(Long id) {
+	public ResponseEntity<Object> deleteUserRoles(Long id) {
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Object> updateUser(UserRoles userRole) {
+	public ResponseEntity<Object> updateUserRoles(UserRoles userRole) {
 		return null;
 	}
 
