@@ -9,18 +9,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.Type;
+
 
 @Entity
-@Table(name = "user_roles")
+@Table(name = "users")
 public class Users {
 	@Id
     private String username;
 
-    @NotBlank
     private String password;
     
-    @NotBlank
-    private byte enabled;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean enabled;
+    
+    private String role;
 
 	public String getUsername() {
 		return username;
@@ -38,13 +41,20 @@ public class Users {
 		this.password = password;
 	}
 
-	public byte getEnabled() {
+	public boolean getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(byte enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-    
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
     
 }

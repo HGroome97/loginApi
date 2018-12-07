@@ -1,13 +1,16 @@
 package com.qa.business.service.Users;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.qa.repository.domain.Users;
 import com.qa.repository.persistence.UsersRepository;
 
+@Service
 public class UsersServiceImpl implements UsersService{
 
 	@Autowired
@@ -35,6 +38,7 @@ public class UsersServiceImpl implements UsersService{
             userInDb.setUsername(user.getUsername());
             userInDb.setPassword(user.getPassword());
             userInDb.setEnabled(user.getEnabled());
+            userInDb.setRole(user.getRole());
             repo.save(userInDb);
             return ResponseEntity.ok().build();
         }
@@ -45,5 +49,9 @@ public class UsersServiceImpl implements UsersService{
         Optional<Users> userOptional = repo.findById(username);
         return userOptional.isPresent();
     }
+	
+	public List<Users> getAll() {
+		return repo.findAll();
+	}
 
 }
