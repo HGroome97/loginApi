@@ -7,10 +7,10 @@ import com.qa.repository.domain.Users;
 
 public interface UserRolesService {
 	
-	String addUserRoles(UserRoles user);
+	String addUserRoles(UserRoles userRole);
 
     ResponseEntity<Object> deleteUser(Long id);
 
-    ResponseEntity<Object> updateUser(UserRoles user);
+    ResponseEntity<Object> updateUser(UserRoles userRole);
 
 }
