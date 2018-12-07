@@ -1,5 +1,6 @@
 package com.qa.repository.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -8,9 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "user_roles")
@@ -20,6 +18,7 @@ public class UserRoles {
     private Long user_role_id;
 
     @NotBlank
+    @Column(unique=true)
     private String username;
 
     @NotBlank
