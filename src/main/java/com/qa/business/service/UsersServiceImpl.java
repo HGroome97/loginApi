@@ -1,5 +1,7 @@
 package com.qa.business.service;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,43 +12,45 @@ import com.qa.repository.persistence.UsersRepository;
 import com.qa.util.Constants;
 
 @Service
-public class UsersServiceImpl implements UsersService{
+public class UsersServiceImpl implements UsersService {
 
 	@Autowired
 	private UsersRepository repo;
-	
+
 	@Override
 	public String addUser(Users user) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		repo.save(user);
-    	return user.toString();
+		return user.toString();
 	}
 
 	@Override
 	public String deleteUser(String username) {
-		if(userExists(username)){
-            repo.deleteById(username);
-            return Constants.ACCOUNT_DELETED_SUCCESSFULLY;
-        }
-        return Constants.ACCOUNT_NOT_FOUND;
+		if (userExists(username)) {
+			repo.deleteById(username);
+			return Constants.ACCOUNT_DELETED_SUCCESSFULLY;
+		}
+		return Constants.ACCOUNT_NOT_FOUND;
 	}
 
 	@Override
 	public String updateUser(Users user) {
-		if(userExists(user.getUsername())){
+		if (userExists(user.getUsername())) {
 			Users userInDb = repo.findById(user.getUsername()).get();
-            userInDb.setUsername(user.getUsername());
-            userInDb.setPassword(user.getPassword());
-            userInDb.setEnabled(user.getEnabled());
-            userInDb.setRole(user.getRole());
-            repo.save(userInDb);
-            return user.toString();
-        }
-        return Constants.ACCOUNT_NOT_FOUND;
+			userInDb.setUsername(user.getUsername());
+			userInDb.setPassword(user.getPassword());
+			userInDb.setEnabled(user.getEnabled());
+			userInDb.setRole(user.getRole());
+			repo.save(userInDb);
+			return user.toString();
+		}
+		return Constants.ACCOUNT_NOT_FOUND;
 	}
-	
-	private boolean userExists(String username){
-        Optional<Users> userOptional = repo.findById(username);
-        return userOptional.isPresent();
-    }
+
+	private boolean userExists(String username) {
+		Optional<Users> userOptional = repo.findById(username);
+		return userOptional.isPresent();
+	}
 
 }
