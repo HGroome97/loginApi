@@ -23,16 +23,16 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
-	public ResponseEntity<Object> deleteUser(String username) {
+	public String deleteUser(String username) {
 		if(userExists(username)){
             repo.deleteById(username);
-            return ResponseEntity.ok().build();
+            return "User successfully deleted";
         }
-        return ResponseEntity.notFound().build();
+        return "User not found";
 	}
 
 	@Override
-	public ResponseEntity<Object> updateUser(Users user) {
+	public String updateUser(Users user) {
 		if(userExists(user.getUsername())){
 			Users userInDb = repo.findById(user.getUsername()).get();
             userInDb.setUsername(user.getUsername());
@@ -40,18 +40,14 @@ public class UsersServiceImpl implements UsersService{
             userInDb.setEnabled(user.getEnabled());
             userInDb.setRole(user.getRole());
             repo.save(userInDb);
-            return ResponseEntity.ok().build();
+            return user.toString();
         }
-        return ResponseEntity.notFound().build();
+        return "User not found";
 	}
 	
 	private boolean userExists(String username){
         Optional<Users> userOptional = repo.findById(username);
         return userOptional.isPresent();
     }
-	
-	public List<Users> getAll() {
-		return repo.findAll();
-	}
 
 }

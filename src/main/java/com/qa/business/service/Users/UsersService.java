@@ -10,9 +10,8 @@ public interface UsersService {
 
 	String addUser(Users user);
 
-    ResponseEntity<Object> deleteUser(String username);
+    String deleteUser(String username);
 
-    ResponseEntity<Object> updateUser(Users user);
-    
-    List<Users> getAll();
+    String updateUser(Users user);
+   
 }

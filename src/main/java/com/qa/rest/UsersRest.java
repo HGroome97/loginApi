@@ -35,23 +35,18 @@ public class UsersRest {
     
     
     @DeleteMapping("/deleteUser/{username}")
-    public ResponseEntity<Object> deleteUser(@PathVariable String username) {
+    public String deleteUser(@PathVariable String username) {
     	return usersService.deleteUser(username);
     }
 
     @PutMapping("/updateUser")
-    public ResponseEntity<Object> updateUser(@RequestBody Users user) {
+    public String updateUser(@RequestBody Users user) {
         return usersService.updateUser(user);
     }
 
     @PostMapping("/createUser")
     public String createUser(@RequestBody Users user) {
         return usersService.addUser(user);
-    }
-
-    @GetMapping("/get")
-    public List<Users> getUser() {
-        return usersService.getAll();
     }
 
 }

@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.qa.business.service.Users.UsersServiceImpl;
@@ -39,7 +40,10 @@ public class UserApiApplicationTests {
 	@Before
 	public void setUp() {
 		user1 = new Users();
+		user1.setUsername("user1");
 		user2 = new Users();
+		user2.setUsername("nonexist");
+		
 		allUsers = new ArrayList<Users>();
 		allUsers.add(user1);
 		allUsers.add(user2);
@@ -50,7 +54,7 @@ public class UserApiApplicationTests {
 		Users user = new Users();
 		assertEquals(null, user.getUsername());
 		assertEquals(null, user.getPassword());
-		assertEquals(null, user.getEnabled());
+		assertEquals(false, user.getEnabled());
 		assertEquals(null, user.getRole());
 
 		user.setUsername("usertest");
@@ -64,24 +68,28 @@ public class UserApiApplicationTests {
 		assertEquals("ROLE_ADMIN", user.getRole());
 	}
 	
-	@Test
-	public void testGet() {
-
-	}
 
 	@Test
 	public void testDelete() {
+		Mockito.when(repo.findById("user1")).thenReturn(Optional.of(user1));
+		Mockito.when(repo.findById("nonexist")).thenReturn(Optional.empty());
 		
+		assertEquals("User successfully deleted", service.deleteUser("user1"));
+		assertEquals("User not found", service.deleteUser("nonexist"));	
 	}
 
 	@Test
 	public void testUpdate() {
+		Mockito.when(repo.findById("user1")).thenReturn(Optional.of(user1));
+		Mockito.when(repo.findById("nonexist")).thenReturn(Optional.empty());
 		
+		assertEquals(user1.toString(), service.updateUser(user1));
+		assertEquals("User not found", service.updateUser(user2));
 	}
 
 	@Test
 	public void testAdd() {
-	
+		assertEquals(user1.toString(), service.addUser(user1));
 	}
 
 	
