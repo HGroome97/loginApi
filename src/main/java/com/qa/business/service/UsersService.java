@@ -1,8 +1,4 @@
-package com.qa.business.service.Users;
-
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
+package com.qa.business.service;
 
 import com.qa.repository.domain.Users;
 

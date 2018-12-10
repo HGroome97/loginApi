@@ -1,4 +1,4 @@
-package com.qa.business.service.Users;
+package com.qa.business.service;
 
 import java.util.Optional;
 

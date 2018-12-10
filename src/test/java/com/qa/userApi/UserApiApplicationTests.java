@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.qa.business.service.Users.UsersServiceImpl;
+import com.qa.business.service.UsersServiceImpl;
 import com.qa.repository.domain.Users;
 import com.qa.repository.persistence.UsersRepository;
 import com.qa.util.Constants;
