@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.qa.business.service.Users.UsersServiceImpl;
 import com.qa.repository.domain.Users;
 import com.qa.repository.persistence.UsersRepository;
+import com.qa.util.Constants;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,18 +36,12 @@ public class UserApiApplicationTests {
 	
 	private Users user1;
 	private Users user2;
-	private ArrayList<Users> allUsers;
 	
 	@Before
 	public void setUp() {
 		user1 = new Users();
-		user1.setUsername("user1");
+		user1.setUsername(Constants.EXAMPLE_USERNAME);
 		user2 = new Users();
-		user2.setUsername("nonexist");
-		
-		allUsers = new ArrayList<Users>();
-		allUsers.add(user1);
-		allUsers.add(user2);
 	}
 	
 	@Test
@@ -57,34 +52,34 @@ public class UserApiApplicationTests {
 		assertEquals(false, user.getEnabled());
 		assertEquals(null, user.getRole());
 
-		user.setUsername("usertest");
-		user.setPassword("passtest");
+		user.setUsername(Constants.EXAMPLE_USERNAME);
+		user.setPassword(Constants.EXAMPLE_PASSWORD);
 		user.setEnabled(true);
-		user.setRole("ROLE_ADMIN");;
+		user.setRole(Constants.EXAMPLE_ROLE);
 		
-		assertEquals("usertest", user.getUsername());
-		assertEquals("passtest", user.getPassword());
+		assertEquals(Constants.EXAMPLE_USERNAME, user.getUsername());
+		assertEquals(Constants.EXAMPLE_PASSWORD, user.getPassword());
 		assertEquals(true, user.getEnabled());
-		assertEquals("ROLE_ADMIN", user.getRole());
+		assertEquals(Constants.EXAMPLE_ROLE, user.getRole());
 	}
 	
 
 	@Test
 	public void testDelete() {
-		Mockito.when(repo.findById("user1")).thenReturn(Optional.of(user1));
-		Mockito.when(repo.findById("nonexist")).thenReturn(Optional.empty());
+		Mockito.when(repo.findById(Constants.EXAMPLE_USERNAME)).thenReturn(Optional.of(user1));
+		Mockito.when(repo.findById(Constants.NONEXISTANT_USERNAME)).thenReturn(Optional.empty());
 		
-		assertEquals("User successfully deleted", service.deleteUser("user1"));
-		assertEquals("User not found", service.deleteUser("nonexist"));	
+		assertEquals(Constants.ACCOUNT_DELETED_SUCCESSFULLY, service.deleteUser(Constants.EXAMPLE_USERNAME));
+		assertEquals(Constants.ACCOUNT_NOT_FOUND, service.deleteUser(Constants.NONEXISTANT_USERNAME));	
 	}
 
 	@Test
 	public void testUpdate() {
-		Mockito.when(repo.findById("user1")).thenReturn(Optional.of(user1));
-		Mockito.when(repo.findById("nonexist")).thenReturn(Optional.empty());
+		Mockito.when(repo.findById(Constants.EXAMPLE_USERNAME)).thenReturn(Optional.of(user1));
+		Mockito.when(repo.findById(Constants.NONEXISTANT_USERNAME)).thenReturn(Optional.empty());
 		
 		assertEquals(user1.toString(), service.updateUser(user1));
-		assertEquals("User not found", service.updateUser(user2));
+		assertEquals(Constants.ACCOUNT_NOT_FOUND, service.updateUser(user2));
 	}
 
 	@Test

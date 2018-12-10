@@ -1,14 +1,13 @@
 package com.qa.business.service.Users;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.qa.repository.domain.Users;
 import com.qa.repository.persistence.UsersRepository;
+import com.qa.util.Constants;
 
 @Service
 public class UsersServiceImpl implements UsersService{
@@ -26,9 +25,9 @@ public class UsersServiceImpl implements UsersService{
 	public String deleteUser(String username) {
 		if(userExists(username)){
             repo.deleteById(username);
-            return "User successfully deleted";
+            return Constants.ACCOUNT_DELETED_SUCCESSFULLY;
         }
-        return "User not found";
+        return Constants.ACCOUNT_NOT_FOUND;
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class UsersServiceImpl implements UsersService{
             repo.save(userInDb);
             return user.toString();
         }
-        return "User not found";
+        return Constants.ACCOUNT_NOT_FOUND;
 	}
 	
 	private boolean userExists(String username){
